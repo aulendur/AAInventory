@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<Plugin>
+    <Information>
+        <Name>AAInventory</Name>
+        <Author>Aulendur</Author>
+        <Version>0.1</Version>
+        <Description>Aulendur's AltInventory</Description>
+        <!-- <Image>AAInventory/icon.jpg/tga</Image> -->
+    </Information>
+    <Package>Aulendur.AAInventory.Main</Package>
+    <!-- <Configuration Apartment="ApartmentName" /> -->
+</Plugin>
