@@ -4,6 +4,7 @@ import "Aulendur.AAInventory.Class"
 AAIWindow = class(Turbine.UI.Lotro.Window())
 
 function AAIWindow:Constructor (x, y)
+	self.ItemList = nil
 	local size = 200
 	local border = 10
 	local textw = size - (2*border)
@@ -29,6 +30,16 @@ function AAIWindow:Constructor (x, y)
 	-- centers the text inside the label both horizontally and vertically
 	self.Message:SetTextAlignment (Turbine.UI.ContentAlignment.MiddleCenter)
 	self.Message:SetText ("Hello Middle-Earth")
+end
 
-	self:SetVisible(true)
+function AAIWindow:SetItemList (ilist)
+	self.ItemList = ilist
+	self:MyUpdate()
+end
+
+function AAIWindow:MyUpdate()
+	if self.ItemList ~= nil then
+		-- self.Message:SetText ("Hello "..(self.ItemList.CurrentChar))
+		self.Message:SetText ("Hello world")
+	end
 end

@@ -2,17 +2,19 @@ import "Turbine.Gameplay"
 import "Aulendur.AAInventory.Class"
 import "Aulendur.AAInventory.AAIWindow"
 
-local win1 = AAIWindow (300, 100)
+-- The One InventoryWindow
+local IWin = AAIWindow()
 
+--
 AAICommand = Turbine.ShellCommand()
 
 function AAICommand:Execute (cmd, args)
 	if (args == "show") then
-		win1:SetVisible (true)
+		IWin:SetVisible (true)
 	elseif (args == "hide") then
-		win1:SetVisible (false)
+		IWin:SetVisible (false)
 	elseif (args == "toggle") then
-		win1:SetVisible (not win1:IsVisible())
+		IWin:SetVisible (not IWin:IsVisible())
 	end
 end
 
@@ -26,12 +28,17 @@ end
 
 Turbine.Shell.AddCommand ("aai;aainventory", AAICommand)
 
-AAIItemlist = class()
+--
+AAIItemList = class()
 
-local player = Turbine.Gameplay.LocalPlayer.GetInstance()
-local toon = player:GetName()
+function AAIItemList:Constructor ()
+	local Characters = {}
+	self.CurrentChar = nil
 
-local bags = player:GetBackpack()
+	local _player = Turbine.Gameplay.LocalPlayer.GetInstance()
+	self.CurrentChar = _player:GetName()
+
+	local bags = _player:GetBackpack()
 local bagitems = {}
 bagitems.count = 0
 for i = 1, bags:GetSize() do
@@ -40,6 +47,10 @@ for i = 1, bags:GetSize() do
 	end
 end
 Turbine.Shell.WriteLine ("You have "..bagitems.count.." items in your bags")
+end
+
+local IList = AAIItemList()
+IWin:SetItemList (IList)
 
 -- local wallet = player:GetWallet()
 -- Turbine.Shell.WriteLine ("You have "..wallet:GetSize().." items in your wallet")
@@ -49,8 +60,4 @@ Turbine.Shell.WriteLine ("You have "..bagitems.count.." items in your bags")
 -- if player:GetAllignment() ~= Turbine.Gameplay.Alignment.FreePeople then
 -- 	return
 -- end
-
-function AAIItemlist:Constructor ()
-	local Characters = {}
-end
 
